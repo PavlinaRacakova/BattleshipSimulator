@@ -19,10 +19,10 @@ class BattleshipPlacementValidatorTest {
             {"C", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~"},
             {"D", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~"},
             {"E", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~"},
-            {"F", "~", "~", "~", "~", "~", "~", "~", "~", "0", "~"},
-            {"G", "~", "~", "~", "~", "~", "~", "~", "~", "0", "~"},
-            {"H", "~", "~", "~", "~", "~", "~", "~", "~", "0", "~"},
-            {"I", "~", "~", "~", "~", "~", "~", "~", "~", "0", "~"},
+            {"F", "~", "~", "~", "~", "~", "~", "~", "~", "O", "~"},
+            {"G", "~", "~", "~", "~", "~", "~", "~", "~", "O", "~"},
+            {"H", "~", "~", "~", "~", "~", "~", "~", "~", "O", "~"},
+            {"I", "~", "~", "~", "~", "~", "~", "~", "~", "O", "~"},
             {"J", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~"}
     };
 
@@ -126,7 +126,7 @@ class BattleshipPlacementValidatorTest {
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
-    @Disabled
+
     @Test
     void Should_ReturnVALID_When_CoordinatesDontOverlapExistingShip() {
         //arrange
@@ -139,7 +139,6 @@ class BattleshipPlacementValidatorTest {
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
-    @Disabled
     @Test
     void Should_ReturnSHIP_PLACED_OVER_ANOTHER_SHIP_When_CoordinatesOverlapExistingShip() {
         //arrange

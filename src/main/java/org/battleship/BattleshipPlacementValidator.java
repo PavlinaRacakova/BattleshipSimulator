@@ -79,7 +79,7 @@ public interface BattleshipPlacementValidator
         return (givenPositions, requiredLength, battlePlace) -> {
             for (String position : givenPositions) {
                 int row = position.charAt(0) - 'A' + 1;
-                int column = Integer.parseInt(position.substring(1)) + 1;
+                int column = Integer.parseInt(position.substring(1));
                 if (battlePlace[row][column].equals("O")) {
                     return SHIP_PLACED_OVER_ANOTHER_SHIP;
                 }
