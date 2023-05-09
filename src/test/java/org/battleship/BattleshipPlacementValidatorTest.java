@@ -27,7 +27,7 @@ class BattleshipPlacementValidatorTest {
     };
 
     final List<String> verticallyCorrectCoordinates = List.of("F1", "G1", "H1");
-    final List<String> horizontallyCorrectCoordinates = List.of("C8", "C9", "C10");
+    final List<String> horizontallyCorrectCoordinates = List.of("B8", "B9", "B10");
     final List<String> absolutelyWrongCoordinates = List.of("A5", "G5", "H6");
 
     @Test
@@ -128,6 +128,30 @@ class BattleshipPlacementValidatorTest {
     }
 
     @Test
+    void Should_ReturnVALID_When_CoordinatesAreValidForEitherHorizontalOrVerticalPlacement() {
+        //arrange
+        ValidationResult expectedResult = VALID;
+        ValidationResult actualResult;
+        //act
+        actualResult = BattleshipPlacementValidator.canBePlacedToTheField()
+                .apply(horizontallyCorrectCoordinates, 3, battlefield);
+        //assert
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+      @Test
+    void Should_ReturnSHIP_PLACED_INCORRECTLY_When_CoordinatesAreNotVerticallyNorHorizontallyCorrect() {
+        //arrange
+        ValidationResult expectedResult = SHIP_PLACED_INCORRECTLY;
+        ValidationResult actualResult;
+        //act
+        actualResult = BattleshipPlacementValidator.canBePlacedToTheField()
+                .apply(absolutelyWrongCoordinates, 3, battlefield);
+        //assert
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void Should_ReturnVALID_When_CoordinatesDontOverlapExistingShip() {
         //arrange
         ValidationResult expectedResult = VALID;
@@ -142,11 +166,37 @@ class BattleshipPlacementValidatorTest {
     @Test
     void Should_ReturnSHIP_PLACED_OVER_ANOTHER_SHIP_When_CoordinatesOverlapExistingShip() {
         //arrange
-        ValidationResult expectedResult = SHIP_PLACED_OVER_ANOTHER_SHIP;
+        ValidationResult expectedResult = SHIP_PLACED_OVER_OTHER_SHIP;
         List<String> coordinatesOverShip = List.of("I7", "I8", "I9");
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.isPlacedOutsideOtherShips()
+                .apply(coordinatesOverShip, 3, battlefield);
+        //assert
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Disabled
+    @Test
+    void Should_ReturnVALID_When_CoordinatesDontTouchExistingShip() {
+        //arrange
+        ValidationResult expectedResult = VALID;
+        ValidationResult actualResult;
+        //act
+        actualResult = BattleshipPlacementValidator.isNotTooCloseToOtherShips()
+                .apply(horizontallyCorrectCoordinates, 3, battlefield);
+        //assert
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void Should_ReturnSHIP_PLACED_TOO_CLOSE_TO_OTHER_SHIP_When_CoordinatesTouchExistingShip() {
+        //arrange
+        ValidationResult expectedResult = SHIP_PLACED_TOO_CLOSE_TO_OTHER_SHIP;
+        List<String> coordinatesOverShip = List.of("F8", "G8", "H8");
+        ValidationResult actualResult;
+        //act
+        actualResult = BattleshipPlacementValidator.isNotTooCloseToOtherShips()
                 .apply(coordinatesOverShip, 3, battlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);

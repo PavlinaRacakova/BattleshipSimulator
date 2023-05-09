@@ -15,12 +15,12 @@ public interface BattleshipPlacementValidator
         VALID,
         INVALID_SIZE_OF_SHIP,
         SHIP_PLACED_INCORRECTLY,
-        SHIP_PLACED_OVER_ANOTHER_SHIP
+        SHIP_PLACED_OVER_OTHER_SHIP,
+        SHIP_PLACED_TOO_CLOSE_TO_OTHER_SHIP;
     }
 
     /**
      * checks if given size of the ship matches required size
-     *
      * @return VALID or INVALID_SIZE_OF_SHIP
      */
     static BattleshipPlacementValidator hasValidSize() {
@@ -30,7 +30,6 @@ public interface BattleshipPlacementValidator
 
     /**
      * checks if the given coordinates are valid for vertical placement
-     *
      * @return VALID or SHIP_PLACED_INCORRECTLY
      */
     static BattleshipPlacementValidator isVerticallyCorrect() {
@@ -51,7 +50,6 @@ public interface BattleshipPlacementValidator
 
     /**
      * checks if the given coordinates are valid for horizontal placement
-     *
      * @return VALID or SHIP_PLACED_INCORRECTLY
      */
     static BattleshipPlacementValidator isHorizontallyCorrect() {
@@ -71,8 +69,22 @@ public interface BattleshipPlacementValidator
     }
 
     /**
+     * wrapping method that checks if the ship can be successfully placed horizontally or vertically to the battlefield
+     * using isHorizontallyCorrect and isVerticallyCorrect methods
+     * @return VALID or SHIP_PLACED_INCORRECTLY
+     */
+    static BattleshipPlacementValidator canBePlacedToTheField() {
+        return (givenPositions, requiredLength, battlePlace) -> {
+            if (isHorizontallyCorrect().apply(givenPositions, requiredLength, battlePlace) == VALID ||
+                    isVerticallyCorrect().apply(givenPositions, requiredLength, battlePlace) == VALID) {
+                return VALID;
+            }
+            return SHIP_PLACED_INCORRECTLY;
+        };
+    }
+
+    /**
      * checks if the coordinates do not replace another already placed ship
-     *
      * @return VALID or SHIP_PLACED_OVER_ANOTHER_SHIP
      */
     static BattleshipPlacementValidator isPlacedOutsideOtherShips() {
@@ -81,10 +93,33 @@ public interface BattleshipPlacementValidator
                 int row = position.charAt(0) - 'A' + 1;
                 int column = Integer.parseInt(position.substring(1));
                 if (battlePlace[row][column].equals("O")) {
-                    return SHIP_PLACED_OVER_ANOTHER_SHIP;
+                    return SHIP_PLACED_OVER_OTHER_SHIP;
                 }
             }
             return VALID;
+        };
+    }
+
+    static BattleshipPlacementValidator isNotTooCloseToOtherShips() {
+        return (givenPositions, requiredLength, battlePlace) -> {
+            for (String position : givenPositions) {
+                int row = position.charAt(0) - 'A' + 1;
+                int column = Integer.parseInt(position.substring(1));
+                if (battlePlace[row + 1][column].equals("O") ||
+                        battlePlace[row - 1][column].equals("O") ||
+                        battlePlace[row][column + 1].equals("O") ||
+                        battlePlace[row][column - 1].equals("O")) {
+                    return SHIP_PLACED_TOO_CLOSE_TO_OTHER_SHIP;
+                }
+            }
+            return VALID;
+        };
+    }
+
+    default BattleshipPlacementValidator and(BattleshipPlacementValidator other) {
+        return (givenPositions, requiredLength, battlePlace) -> {
+            ValidationResult result = this.apply(givenPositions, requiredLength, battlePlace);
+            return result.equals(VALID) ? other.apply(givenPositions, requiredLength, battlePlace) : result;
         };
     }
 
