@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8dc0b0ed-63b7-4caf-9c84-c1c7ac78f389" name="Changes" comment="ships validation done">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/battleship/Battleship.java" afterDir="false" />
+    <list default="true" id="8dc0b0ed-63b7-4caf-9c84-c1c7ac78f389" name="Changes" comment="main game loop finished">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/battleship/Battleship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/battleship/Battleship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/battleship/BattleshipPlacementValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/battleship/BattleshipPlacementValidator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/battleship/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/battleship/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/battleship/BattleshipPlacementValidatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/battleship/BattleshipPlacementValidatorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +79,7 @@
       <recent name="org.battleship" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Gradle.BattleshipPlacementValidatorTest.Should_ReturnVALID_When_CoordinatesDontTouchExistingShip">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.battleship.Main" />
       <module name="BattleShipSimulator.main" />
@@ -185,8 +187,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.BattleshipPlacementValidatorTest" />
         <item itemvalue="Gradle.BattleshipPlacementValidatorTest.Should_ReturnVALID_When_CoordinatesDontTouchExistingShip" />
+        <item itemvalue="Gradle.BattleshipPlacementValidatorTest" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Gradle.BattleshipPlacementValidatorTest.Should_ReturnVALID_When_CoordinatesDontOverlapExistingShip" />
         <item itemvalue="Gradle.BattleshipPlacementValidatorTest.Should_ReturnSHIP_PLACED_TOO_CLOSE_TO_OTHER_SHIP_When_CoordinatesTouchExistingShip" />
@@ -223,12 +225,20 @@
       <option name="project" value="LOCAL" />
       <updated>1683657361723</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="main game loop finished">
+      <created>1683720845841</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683720845841</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="validator interface implemented with tests" />
     <MESSAGE value="ships validation done" />
-    <option name="LAST_COMMIT_MESSAGE" value="ships validation done" />
+    <MESSAGE value="main game loop finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="main game loop finished" />
   </component>
 </project>

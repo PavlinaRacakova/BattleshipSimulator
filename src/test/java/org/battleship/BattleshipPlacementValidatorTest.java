@@ -1,7 +1,6 @@
 package org.battleship;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -139,7 +138,7 @@ class BattleshipPlacementValidatorTest {
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
-      @Test
+    @Test
     void Should_ReturnSHIP_PLACED_INCORRECTLY_When_CoordinatesAreNotVerticallyNorHorizontallyCorrect() {
         //arrange
         ValidationResult expectedResult = SHIP_PLACED_INCORRECTLY;
@@ -176,7 +175,6 @@ class BattleshipPlacementValidatorTest {
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
-    @Disabled
     @Test
     void Should_ReturnVALID_When_CoordinatesDontTouchExistingShip() {
         //arrange
@@ -184,7 +182,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.isNotTooCloseToOtherShips()
-                .apply(horizontallyCorrectCoordinates, 3, battlefield);
+                .apply(verticallyCorrectCoordinates, 3, battlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }

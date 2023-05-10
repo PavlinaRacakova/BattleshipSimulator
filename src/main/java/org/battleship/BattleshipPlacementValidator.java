@@ -16,11 +16,12 @@ public interface BattleshipPlacementValidator
         INVALID_SIZE_OF_SHIP,
         SHIP_PLACED_INCORRECTLY,
         SHIP_PLACED_OVER_OTHER_SHIP,
-        SHIP_PLACED_TOO_CLOSE_TO_OTHER_SHIP;
+        SHIP_PLACED_TOO_CLOSE_TO_OTHER_SHIP
     }
 
     /**
      * checks if given size of the ship matches required size
+     *
      * @return VALID or INVALID_SIZE_OF_SHIP
      */
     static BattleshipPlacementValidator hasValidSize() {
@@ -30,6 +31,7 @@ public interface BattleshipPlacementValidator
 
     /**
      * checks if the given coordinates are valid for vertical placement
+     *
      * @return VALID or SHIP_PLACED_INCORRECTLY
      */
     static BattleshipPlacementValidator isVerticallyCorrect() {
@@ -50,6 +52,7 @@ public interface BattleshipPlacementValidator
 
     /**
      * checks if the given coordinates are valid for horizontal placement
+     *
      * @return VALID or SHIP_PLACED_INCORRECTLY
      */
     static BattleshipPlacementValidator isHorizontallyCorrect() {
@@ -71,6 +74,7 @@ public interface BattleshipPlacementValidator
     /**
      * wrapping method that checks if the ship can be successfully placed horizontally or vertically to the battlefield
      * using isHorizontallyCorrect and isVerticallyCorrect methods
+     *
      * @return VALID or SHIP_PLACED_INCORRECTLY
      */
     static BattleshipPlacementValidator canBePlacedToTheField() {
@@ -85,6 +89,7 @@ public interface BattleshipPlacementValidator
 
     /**
      * checks if the coordinates do not replace another already placed ship
+     *
      * @return VALID or SHIP_PLACED_OVER_ANOTHER_SHIP
      */
     static BattleshipPlacementValidator isPlacedOutsideOtherShips() {
@@ -100,6 +105,11 @@ public interface BattleshipPlacementValidator
         };
     }
 
+    /**
+     * checks if the coordinates do not touch existing ship
+     *
+     * @return VALID or SHIP_PLACED_TOO_CLOSE_TO_OTHER_SHIP
+     */
     static BattleshipPlacementValidator isNotTooCloseToOtherShips() {
         return (givenPositions, requiredLength, battlePlace) -> {
             for (String position : givenPositions) {
@@ -122,6 +132,5 @@ public interface BattleshipPlacementValidator
             return result.equals(VALID) ? other.apply(givenPositions, requiredLength, battlePlace) : result;
         };
     }
-
 }
 
