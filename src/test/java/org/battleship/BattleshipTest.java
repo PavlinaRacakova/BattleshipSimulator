@@ -8,7 +8,7 @@ import java.util.List;
 
 class BattleshipTest {
 
-    String[][] testingBattlefield = {
+    final String[][] testingBattlefield = {
             {" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", " "},
             {"A", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
             {"B", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
