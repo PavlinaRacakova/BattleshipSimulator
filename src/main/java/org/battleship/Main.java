@@ -17,12 +17,16 @@ public class Main {
         //necessary variables
         Scanner sc = new Scanner(System.in);
         String usersInput;
+        int invalidInputCounter = 0;
         ValidationResult validationResult = SHIP_PLACED_INCORRECTLY;
         List<String> coordinates;
+        List<String> usedCoordinatesByUser = new ArrayList<>();
         List<String> namesOfBattleships = new ArrayList<>(List.of
-                ("the Aircraft Carrier (5 cells)", "the Cruiser (3 cells)", "the Submarine (3 cells)", "the Destroyer (2 cells)"));
+                ("the Aircraft Carrier", "the Cruiser", "the Submarine", "the Destroyer"));
         List<Integer> lengthsOfBattleships = new ArrayList<>(List.of(5, 3, 3, 2));
-        String[][] battlefield = {
+        List<Battleship> battleships = new ArrayList<>();
+
+        String[][] mainBattlefield = {
                 {" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", " "},
                 {"A", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
                 {"B", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
@@ -34,13 +38,38 @@ public class Main {
                 {"H", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
                 {"I", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
                 {"J", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
-                {" "," "," "," "," "," "," "," "," "," "," "}
+                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "}
         };
 
+        String[][] gameBattlefield = {
+                {" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", " "},
+                {"A", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
+                {"B", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
+                {"C", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
+                {"D", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
+                {"E", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
+                {"F", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
+                {"G", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
+                {"H", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
+                {"I", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
+                {"J", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~", " "},
+                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "}
+        };
+
+        System.out.println("""
+                                __/___           \s
+                          _____/______|          \s
+                  _______/_____\\_______\\_____    \s
+                  \\              < < <       |   \s
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~""");
+        System.out.println("\nWELCOME TO THE BATTLESHIP SIMULATOR\n");
+
+        //placement of battleships in the battlefield
         for (int i = 0; i < 4; i++) {
             while (true) {
                 try {
-                    System.out.printf("Enter the coordinates of %s divided by whitespace:\n(e.g. for a ship that requires 3 cells: E1 E2 E3)\n", namesOfBattleships.get(i));
+                    System.out.printf("Enter the coordinates of %s (%d cells) divided by whitespace:\n(e.g. for a ship that requires 3 cells: E1 E2 E3)\n",
+                            namesOfBattleships.get(i), lengthsOfBattleships.get(i));
                     usersInput = sc.nextLine().toUpperCase();
                     coordinates = new ArrayList<>(List.of(usersInput.split("\\s")));
                     //checks if given coordinates are in bounds and consist of allowed characters
@@ -54,16 +83,13 @@ public class Main {
                             .and(canBePlacedToTheField())
                             .and(isPlacedOutsideOtherShips())
                             .and(isNotTooCloseToOtherShips())
-                            .apply(coordinates, lengthsOfBattleships.get(i), battlefield);
+                            .apply(coordinates, lengthsOfBattleships.get(i), mainBattlefield);
 
                     if (validationResult != VALID) {
                         throw new ValidationException();
                     }
-
-                    for (String coordinate : coordinates) {
-                        battlefield[coordinate.charAt(0) - 'A' + 1][Integer.parseInt(coordinate.substring(1))] = "O";
-                    }
-                    printBattlefield(battlefield);
+                    battleships.add(new Battleship(namesOfBattleships.get(i), coordinates, mainBattlefield));
+                    printBattlefield(mainBattlefield);
                     break;
                 } catch (ValidationException e) {
                     System.out.println("Something is wrong: " + validationResult + ". Please try again.");
@@ -73,19 +99,136 @@ public class Main {
             }
         }
 
+        clearScreen();
+        System.out.println("""
+                ⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⡆
+                ⠉⠹⣿⣷⣀⠀⠀⠀⠀⢰⣶⡤⠀⢤⣴⡶⠀⠀⠀⠀⢀⣼⣿⠟⠉⠁
+                ⠀⠀⠈⠻⣿⣦⣄⠀⢀⣼⡟⠓⠀⠘⠛⣷⣄⠀⢀⣴⣿⡿⠁⠀⠀⠀
+                ⠀⠀⠀⠀⠙⢿⣿⣶⣿⠉⠀⠀⠀⠀⠀⠈⢻⣷⣿⡿⠋⠀⠀⠀⠀⠀
+                ⠀⢀⡀⢀⣠⡾⠿⡹⢆⠠⡀⠀⠀⠀⢀⠔⣡⠞⡹⢷⡄⡀⢀⡀⠀⠀
+                ⠀⠸⡯⣿⠛⠁⠀⠀⢈⠲⣌⠢⡀⡠⣡⠞⡡⠊⠀⠀⠛⣿⢿⡛⠀⠀
+                ⠀⠀⠁⠀⠀⠀⠀⠀⠀⠑⢌⡱⢊⡴⢃⠌⠀⠄⠀⠀⠀⠀⠀⠁⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠜⠔⢋⢔⠑⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⡐⡡⢂⠔⠉⠢⡙⢌⠢⡀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⡠⠊⠈⡠⠀⠀⠀⠀⠈⠢⡁⠌⢆⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⢀⠔⠀⡠⠊⠀⠀⠀⠀⠀⠀⠀⠈⠢⡀⠑⠄⠀⠀⠀⠀⠀
+                ⠀⠀⠀⡠⠀⡠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠠⡈⢢⠀⠀⠀⠀
+                ⠀⠀⣔⡠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠢⡡⡀⠀⠀
+                ⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠀⠀""");
+        System.out.println("THE GAME STARTS\n");
 
-        sc.close();
+        //main game loop
+        while (!battleships.isEmpty()) {
+
+            while (true) {
+                try {
+                    System.out.println("Take a shot:");
+                    usersInput = sc.nextLine().toUpperCase();
+                    if (!(usersInput.matches("^[A-J][1-9]$") || usersInput.matches("^[A-J]10$"))) {
+                        throw new Exception();
+                    }
+                    break;
+                } catch (Exception e) {
+                    System.out.println("The coordinate was entered incorrectly. Please try again.");
+                }
+            }
+
+            if (usedCoordinatesByUser.contains(usersInput)) {
+                System.out.println("You have already used this coordinate.");
+                continue;
+            }
+
+            usedCoordinatesByUser.add(usersInput);
+
+            boolean nothingWasHit = true;
+
+            for (Battleship ship : battleships) {
+                if (ship.isItAHit(usersInput, gameBattlefield)) {
+                    if (ship.isNotSunk()) {
+                        System.out.println("It was a hit!");
+                    } else {
+                        System.out.printf("%s was destroyed!\n", ship.getName());
+                        System.out.println("""
+                                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣄⠈⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                                ⠀⠀⠀⣴⣄⠀⢀⣤⣶⣦⣀⠀⠀⣰⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                                ⠀⠀⠀⢸⣿⣷⣌⠻⢿⣩⡿⢷⣄⠙⢿⠟⠀⠀⠀⠀⠀⠰⣄⠀⠀⠀⠀⠀⠀⠀
+                                ⠀⠀⠀⠈⣿⣿⣿⣷⣄⠙⢷⣾⠟⣷⣄⠀⠀⠀⠀⣠⣿⣦⠈⠀⠀⠀⠀⠀⠀⠀
+                                ⠀⠀⠀⠀⢿⣿⣿⣿⣿⣷⣄⠙⢿⣏⣹⣷⣄⠀⢴⣿⣿⠃⠀⠀⠀⠀⢀⡀⠀⠀
+                                ⠀⠀⠀⠸⣦⡙⠻⣿⣿⣿⣿⣷⣄⠙⢿⣤⡿⢷⣄⠙⠃⠀⠀⠀⠀⣀⡈⠻⠂⠀
+                                ⠀⠀⠀⠀⠈⠻⣦⡈⠻⣿⣿⣿⣿⣷⣄⠙⢷⣾⠛⣷⣄⠀⠀⢀⣴⣿⣿⠀⠀⠀
+                                ⠀⠀⠀⠀⠀⠀⠈⠻⣦⡈⠛⠛⠻⣿⣿⣷⣄⠙⠛⠋⢹⣷⣄⠈⠻⠛⠃⠀⠀⠀
+                                ⠀⢀⣴⣿⣧⡀⠀⠀⠈⢁⣼⣿⣄⠙⢿⡿⠋⣠⣿⣧⡀⠠⡿⠗⢀⣼⣿⣦⡀⠀
+                                ⠀⠟⠛⠉⠙⠻⣶⣤⣶⠟⠋⠉⠛⢷⣦⣴⡾⠛⠉⠙⠻⣶⣤⣶⠟⠋⠉⠛⠻⠀
+                                ⠀⣶⣿⣿⣿⣦⣄⣉⣠⣶⣿⣿⣷⣦⣈⣁⣴⣾⣿⣿⣶⣄⣉⣠⣶⣿⣿⣿⣶⠀
+                                ⠀⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠀""");
+                    }
+                    nothingWasHit = false;
+                }
+            }
+
+            battleships.removeIf(ship -> !ship.isNotSunk());
+
+            if (nothingWasHit) {
+                gameBattlefield[usersInput.charAt(0) - 'A' + 1][Integer.parseInt(usersInput.substring(1))] = "M";
+                invalidInputCounter++;
+                System.out.println("You missed!");
+                System.out.printf("Missed shots: %d/30\n", invalidInputCounter);
+            }
+
+            checkIfUserHasLost(invalidInputCounter);
+            printBattlefield(gameBattlefield);
+
+        }
+
+        System.out.println("Congratulations! You won!");
+        System.out.println("""
+                                                   .''.      \s
+                       .''.      .        *''*    :_\\/_:     .\s
+                      :_\\/_:   _\\(/_  .:.*_\\/_*   : /\\ :  .'.:.'.
+                  .''.: /\\ :   ./)\\   ':'* /\\ * :  '..'.  -=:o:=-
+                 :_\\/_:'.:::.    ' *''*    * '.\\'/.' _\\(/_'.':'.'
+                 : /\\ : :::::     *_\\/_*     -= o =-  /)\\    '  *
+                  '..'  ':::'     * /\\ *     .'/.\\'.   '
+                      *            *..*         :
+                        *
+                        *\
+                """);
 
     }
 
     public static void printBattlefield(String[][] board) {
         System.out.println();
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print(board[i][j]);
+        for (String[] strings : board) {
+            for (String string : strings) {
+                System.out.print(string);
             }
             System.out.println();
         }
+    }
+
+    public static void checkIfUserHasLost(int invalidInputCounter) {
+        if (invalidInputCounter >= 30) {
+            System.out.println("Too many attempts! You are out of artillery.");
+            System.out.println("""
+                        ┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼
+                        ███▀▀▀██┼███▀▀▀███┼███▀█▄█▀███┼██▀▀▀
+                        ██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼█┼┼┼██┼██┼┼┼
+                        ██┼┼┼▄▄▄┼██▄▄▄▄▄██┼██┼┼┼▀┼┼┼██┼██▀▀▀
+                        ██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼┼┼┼┼██┼██┼┼┼
+                        ███▄▄▄██┼██┼┼┼┼┼██┼██┼┼┼┼┼┼┼██┼██▄▄▄
+                        ┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼
+                        ███▀▀▀███┼▀███┼┼██▀┼██▀▀▀┼██▀▀▀▀██▄┼
+                        ██┼┼┼┼┼██┼┼┼██┼┼██┼┼██┼┼┼┼██┼┼┼┼┼██┼
+                        ██┼┼┼┼┼██┼┼┼██┼┼██┼┼██▀▀▀┼██▄▄▄▄▄▀▀┼
+                        ██┼┼┼┼┼██┼┼┼██┼┼█▀┼┼██┼┼┼┼██┼┼┼┼┼██┼
+                        ███▄▄▄███┼┼┼─▀█▀┼┼─┼██▄▄▄┼██┼┼┼┼┼██▄""");
+            System.exit(0);
+        }
+    }
+
+    public static void clearScreen() {
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
 
     public static class ValidationException extends Exception {
