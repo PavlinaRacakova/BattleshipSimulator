@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8dc0b0ed-63b7-4caf-9c84-c1c7ac78f389" name="Changes" comment="main game loop finished">
+    <list default="true" id="8dc0b0ed-63b7-4caf-9c84-c1c7ac78f389" name="Changes" comment="final version">
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/battleship/BattleshipTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/battleship/Battleship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/battleship/Battleship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/battleship/BattleshipPlacementValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/battleship/BattleshipPlacementValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/battleship/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/battleship/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/battleship/BattleshipPlacementValidatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/battleship/BattleshipPlacementValidatorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,8 +42,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -79,20 +76,7 @@
       <recent name="org.battleship" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.BattleshipPlacementValidatorTest.Should_ReturnVALID_When_CoordinatesDontTouchExistingShip">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.battleship.Main" />
-      <module name="BattleShipSimulator.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.battleship.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Gradle.BattleshipTest.Should_LowerLifeOfShipByOne_When_TheShipIsOnGivenCoordinate">
     <configuration name="BattleshipPlacementValidatorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -107,52 +91,6 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;org.battleship.BattleshipPlacementValidatorTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="BattleshipPlacementValidatorTest.Should_ReturnSHIP_PLACED_TOO_CLOSE_TO_OTHER_SHIP_When_CoordinatesTouchExistingShip" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;org.battleship.BattleshipPlacementValidatorTest.Should_ReturnSHIP_PLACED_TOO_CLOSE_TO_OTHER_SHIP_When_CoordinatesTouchExistingShip&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="BattleshipPlacementValidatorTest.Should_ReturnVALID_When_CoordinatesDontOverlapExistingShip" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;org.battleship.BattleshipPlacementValidatorTest.Should_ReturnVALID_When_CoordinatesDontOverlapExistingShip&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -185,13 +123,82 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="BattleshipTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.battleship.BattleshipTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="BattleshipTest.Should_LowerLifeOfShipByOne_When_TheShipIsOnGivenCoordinate" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.battleship.BattleshipTest.Should_LowerLifeOfShipByOne_When_TheShipIsOnGivenCoordinate&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="BattleshipTest.Should_ReturnTrue_When_TheShipIsOnGivenCoordinate" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.battleship.BattleshipTest.Should_ReturnTrue_When_TheShipIsOnGivenCoordinate&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.BattleshipTest.Should_LowerLifeOfShipByOne_When_TheShipIsOnGivenCoordinate" />
+        <item itemvalue="Gradle.BattleshipTest.Should_ReturnTrue_When_TheShipIsOnGivenCoordinate" />
+        <item itemvalue="Gradle.BattleshipTest" />
         <item itemvalue="Gradle.BattleshipPlacementValidatorTest.Should_ReturnVALID_When_CoordinatesDontTouchExistingShip" />
         <item itemvalue="Gradle.BattleshipPlacementValidatorTest" />
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Gradle.BattleshipPlacementValidatorTest.Should_ReturnVALID_When_CoordinatesDontOverlapExistingShip" />
-        <item itemvalue="Gradle.BattleshipPlacementValidatorTest.Should_ReturnSHIP_PLACED_TOO_CLOSE_TO_OTHER_SHIP_When_CoordinatesTouchExistingShip" />
       </list>
     </recent_temporary>
   </component>
@@ -232,13 +239,21 @@
       <option name="project" value="LOCAL" />
       <updated>1683720845841</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="final version">
+      <created>1683731283394</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1683731283394</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="validator interface implemented with tests" />
     <MESSAGE value="ships validation done" />
     <MESSAGE value="main game loop finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="main game loop finished" />
+    <MESSAGE value="final version" />
+    <option name="LAST_COMMIT_MESSAGE" value="final version" />
   </component>
 </project>
