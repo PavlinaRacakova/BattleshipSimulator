@@ -3,6 +3,7 @@ package org.battleship;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.battleship.BattleshipPlacementValidator.*;
@@ -11,23 +12,9 @@ import static org.battleship.BattleshipPlacementValidator.ValidationResult.*;
 
 class BattleshipPlacementValidatorTest {
 
-    final String[][] battlefield = {
-            {" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"},
-            {"A", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~"},
-            {"B", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~"},
-            {"C", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~"},
-            {"D", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~"},
-            {"E", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~"},
-            {"F", "~", "~", "~", "~", "~", "~", "~", "~", "O", "~"},
-            {"G", "~", "~", "~", "~", "~", "~", "~", "~", "O", "~"},
-            {"H", "~", "~", "~", "~", "~", "~", "~", "~", "O", "~"},
-            {"I", "~", "~", "~", "~", "~", "~", "~", "~", "O", "~"},
-            {"J", "~", "~", "~", "~", "~", "~", "~", "~", "~", "~"}
-    };
-
-    final List<String> verticallyCorrectCoordinates = List.of("F1", "G1", "H1");
-    final List<String> horizontallyCorrectCoordinates = List.of("B8", "B9", "B10");
-    final List<String> absolutelyWrongCoordinates = List.of("A5", "G5", "H6");
+    final List<String> verticallyCorrectCoordinates = Arrays.asList("F1", "G1", "H1");
+    final List<String> horizontallyCorrectCoordinates = Arrays.asList("B8", "B9", "B10");
+    final List<String> absolutelyWrongCoordinates = Arrays.asList("A5", "G5", "H6");
 
     @Test
     void Should_ReturnVALID_When_NumberOfCoordinatesMatchesGivenNumber() {
@@ -36,7 +23,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.hasValidSize()
-                .apply(verticallyCorrectCoordinates, 3, battlefield);
+                .apply(verticallyCorrectCoordinates, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -48,7 +35,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.hasValidSize()
-                .apply(verticallyCorrectCoordinates, 5, battlefield);
+                .apply(verticallyCorrectCoordinates, 5, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -61,7 +48,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.isVerticallyCorrect()
-                .apply(verticallyCorrectCoordinates, 3, battlefield);
+                .apply(verticallyCorrectCoordinates, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -73,7 +60,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.isVerticallyCorrect()
-                .apply(horizontallyCorrectCoordinates, 3, battlefield);
+                .apply(horizontallyCorrectCoordinates, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -85,7 +72,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.isVerticallyCorrect()
-                .apply(absolutelyWrongCoordinates, 3, battlefield);
+                .apply(absolutelyWrongCoordinates, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -97,7 +84,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.isHorizontallyCorrect()
-                .apply(horizontallyCorrectCoordinates, 3, battlefield);
+                .apply(horizontallyCorrectCoordinates, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -109,7 +96,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.isHorizontallyCorrect()
-                .apply(verticallyCorrectCoordinates, 3, battlefield);
+                .apply(verticallyCorrectCoordinates, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -121,7 +108,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.isHorizontallyCorrect()
-                .apply(absolutelyWrongCoordinates, 3, battlefield);
+                .apply(absolutelyWrongCoordinates, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -133,7 +120,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.canBePlacedToTheField()
-                .apply(horizontallyCorrectCoordinates, 3, battlefield);
+                .apply(horizontallyCorrectCoordinates, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -145,7 +132,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.canBePlacedToTheField()
-                .apply(absolutelyWrongCoordinates, 3, battlefield);
+                .apply(absolutelyWrongCoordinates, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -157,7 +144,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.isPlacedOutsideOtherShips()
-                .apply(horizontallyCorrectCoordinates, 3, battlefield);
+                .apply(horizontallyCorrectCoordinates, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -170,7 +157,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.isPlacedOutsideOtherShips()
-                .apply(coordinatesOverShip, 3, battlefield);
+                .apply(coordinatesOverShip, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -182,7 +169,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.isNotTooCloseToOtherShips()
-                .apply(verticallyCorrectCoordinates, 3, battlefield);
+                .apply(verticallyCorrectCoordinates, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -195,7 +182,7 @@ class BattleshipPlacementValidatorTest {
         ValidationResult actualResult;
         //act
         actualResult = BattleshipPlacementValidator.isNotTooCloseToOtherShips()
-                .apply(coordinatesOverShip, 3, battlefield);
+                .apply(coordinatesOverShip, 3, BattleshipTest.testingBattlefield);
         //assert
         Assertions.assertEquals(expectedResult, actualResult);
     }

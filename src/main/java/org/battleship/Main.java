@@ -1,6 +1,7 @@
 package org.battleship;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,9 +22,9 @@ public class Main {
         ValidationResult validationResult = SHIP_PLACED_INCORRECTLY;
         List<String> coordinates;
         List<String> coordinatesGuessedByUser = new ArrayList<>();
-        List<String> namesOfBattleships = new ArrayList<>(List.of
+        List<String> namesOfBattleships = new ArrayList<>(Arrays.asList
                 ("the Aircraft Carrier", "the Cruiser", "the Submarine", "the Destroyer"));
-        List<Integer> lengthsOfBattleships = new ArrayList<>(List.of(5, 3, 3, 2));
+        List<Integer> lengthsOfBattleships = new ArrayList<>(Arrays.asList(5, 3, 3, 2));
         List<Battleship> battleships = new ArrayList<>();
 
         String[][] battlefield = {
