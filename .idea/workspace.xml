@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8dc0b0ed-63b7-4caf-9c84-c1c7ac78f389" name="Changes" comment="final version">
+    <list default="true" id="8dc0b0ed-63b7-4caf-9c84-c1c7ac78f389" name="Changes" comment="testing classes simplified">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/battleship/BattleshipPlacementValidatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/battleship/BattleshipPlacementValidatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/battleship/BattleshipTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/battleship/BattleshipTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +64,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_opened_file_path": "C:/Users/Racak/IdeaProjects/BattleShipSimulator"
+    "last_opened_file_path": "C:/Users/Racak/IdeaProjects/vlastní/HyperskillTesty"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -261,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683738460345</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="testing classes simplified">
+      <created>1684180671390</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1684180671390</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -269,6 +274,7 @@
     <MESSAGE value="ships validation done" />
     <MESSAGE value="main game loop finished" />
     <MESSAGE value="final version" />
-    <option name="LAST_COMMIT_MESSAGE" value="final version" />
+    <MESSAGE value="testing classes simplified" />
+    <option name="LAST_COMMIT_MESSAGE" value="testing classes simplified" />
   </component>
 </project>
