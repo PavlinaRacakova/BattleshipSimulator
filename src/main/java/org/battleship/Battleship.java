@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Battleship {
 
-    String name;
-    List<String> coordinates;
-    int life;
+    private final String name;
+    private final List<String> coordinates;
+    private int life;
 
     public Battleship(String name, List<String> coordinates, String[][] battlefield) {
         this.name = name;
@@ -24,6 +24,10 @@ public class Battleship {
 
     public List<String> getCoordinates() {
         return coordinates;
+    }
+
+    public int getLife() {
+        return life;
     }
 
     /**
